@@ -31,7 +31,7 @@ include_once "header.php";
                     </div>
                 </div>
 
-                <a href="#" class="logout">Logout</a>
+                <a href="php/logout.php?logout_id=<?php echo $row['unique_id']?>" class="logout">Logout</a>
 
             </header>
 

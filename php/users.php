@@ -2,25 +2,15 @@
 
 session_start();
 include_once "config.php";
+
+$outgoing_id = $_SESSION['unique_id'];
 $output = '';
-$sql = mysqli_query($conn, "SELECT * FROM users");
+$sql = mysqli_query($conn, "SELECT * FROM users WHERE NOT unique_id = {$outgoing_id}");
+
 if (mysqli_num_rows($sql) == 1) {
-    $output .="No users are available to chat";
+    $output .= "No users are available to chat";
 } else if (mysqli_num_rows($sql) > 0) {
-    while($row = mysqli_fetch_assoc($sql)) {
-        $output .= '
-            <a href="#">
-                <div class="content">
-                    <img src="images/'.$row["img"].'" alt="">
-                    <div class="details">
-                        <span>'.$row["fname"].'</span>
-                        <p>This is test message</p>
-                    </div>
-                </div>
-                <div class="status-dot offline"><i class="fas fa-circle"></i></div>
-            </a> 
-        ';
-    }
+    include "data.php";
 }
 
 echo $output;
